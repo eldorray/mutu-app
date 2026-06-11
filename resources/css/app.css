@@ -1,0 +1,260 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../app';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+/* Enable class-based dark mode (Tailwind v4) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Brand palette reads from CSS variables so themes can override it. */
+    --color-brand-50: var(--brand-50);
+    --color-brand-100: var(--brand-100);
+    --color-brand-200: var(--brand-200);
+    --color-brand-300: var(--brand-300);
+    --color-brand-400: var(--brand-400);
+    --color-brand-500: var(--brand-500);
+    --color-brand-600: var(--brand-600);
+    --color-brand-700: var(--brand-700);
+    --color-brand-800: var(--brand-800);
+    --color-brand-900: var(--brand-900);
+
+    /* Ink palette reads from CSS variables so dark mode can flip it. */
+    --color-ink-50: var(--ink-50);
+    --color-ink-100: var(--ink-100);
+    --color-ink-200: var(--ink-200);
+    --color-ink-300: var(--ink-300);
+    --color-ink-400: var(--ink-400);
+    --color-ink-500: var(--ink-500);
+    --color-ink-600: var(--ink-600);
+    --color-ink-700: var(--ink-700);
+    --color-ink-800: var(--ink-800);
+    --color-ink-900: var(--ink-900);
+
+    --color-surface: var(--surface);
+    --color-surface-soft: var(--surface-soft);
+    --color-surface-muted: var(--surface-muted);
+    --color-dark-cocoa: #422a18;
+
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-brand: 0 10px 25px -10px var(--brand-500-shadow, rgba(255, 94, 30, 0.45));
+}
+
+/* =========================================================
+   Light mode defaults + ink scale
+   ========================================================= */
+:root {
+    --ink-50: #f6f7f9;
+    --ink-100: #eceef2;
+    --ink-200: #d4d7de;
+    --ink-300: #b0b4bd;
+    --ink-400: #858a95;
+    --ink-500: #606670;
+    --ink-600: #474c56;
+    --ink-700: #343841;
+    --ink-800: #22252c;
+    --ink-900: #14161b;
+
+    --surface: #f1f2f5;
+    --surface-soft: #fbfbfc;
+    --surface-muted: #f3f4f6;
+}
+
+/* Dark mode ink/surface — inverted so ink-900 = near-white, ink-50 = near-black */
+.dark {
+    --ink-50: #1a1d23;
+    --ink-100: #22252c;
+    --ink-200: #2d3139;
+    --ink-300: #3f444d;
+    --ink-400: #6b7280;
+    --ink-500: #9ca3af;
+    --ink-600: #c3c7cf;
+    --ink-700: #dde0e5;
+    --ink-800: #ecedf0;
+    --ink-900: #f5f6f8;
+
+    --surface: #0f1115;
+    --surface-soft: #14161b;
+    --surface-muted: #1a1d23;
+}
+
+/* =========================================================
+   Color themes (brand scale)
+   Default + alternatives. Applied via [data-theme="..."] on <html>.
+   ========================================================= */
+
+/* Orange (default) */
+:root,
+[data-theme='orange'] {
+    --brand-50: #fff3ec;
+    --brand-100: #ffe0cc;
+    --brand-200: #ffc199;
+    --brand-300: #ff9a66;
+    --brand-400: #ff7a3d;
+    --brand-500: #ff5e1e;
+    --brand-600: #e64b0f;
+    --brand-700: #b83a09;
+    --brand-800: #8a2c08;
+    --brand-900: #5c1d05;
+    --brand-500-shadow: rgba(255, 94, 30, 0.45);
+}
+
+[data-theme='emerald'] {
+    --brand-50: #ecfdf5;
+    --brand-100: #d1fae5;
+    --brand-200: #a7f3d0;
+    --brand-300: #6ee7b7;
+    --brand-400: #34d399;
+    --brand-500: #10b981;
+    --brand-600: #059669;
+    --brand-700: #047857;
+    --brand-800: #065f46;
+    --brand-900: #064e3b;
+    --brand-500-shadow: rgba(16, 185, 129, 0.45);
+}
+
+[data-theme='blue'] {
+    --brand-50: #eff6ff;
+    --brand-100: #dbeafe;
+    --brand-200: #bfdbfe;
+    --brand-300: #93c5fd;
+    --brand-400: #60a5fa;
+    --brand-500: #3b82f6;
+    --brand-600: #2563eb;
+    --brand-700: #1d4ed8;
+    --brand-800: #1e40af;
+    --brand-900: #1e3a8a;
+    --brand-500-shadow: rgba(59, 130, 246, 0.45);
+}
+
+[data-theme='violet'] {
+    --brand-50: #f5f3ff;
+    --brand-100: #ede9fe;
+    --brand-200: #ddd6fe;
+    --brand-300: #c4b5fd;
+    --brand-400: #a78bfa;
+    --brand-500: #8b5cf6;
+    --brand-600: #7c3aed;
+    --brand-700: #6d28d9;
+    --brand-800: #5b21b6;
+    --brand-900: #4c1d95;
+    --brand-500-shadow: rgba(139, 92, 246, 0.45);
+}
+
+[data-theme='rose'] {
+    --brand-50: #fff1f2;
+    --brand-100: #ffe4e6;
+    --brand-200: #fecdd3;
+    --brand-300: #fda4af;
+    --brand-400: #fb7185;
+    --brand-500: #f43f5e;
+    --brand-600: #e11d48;
+    --brand-700: #be123c;
+    --brand-800: #9f1239;
+    --brand-900: #881337;
+    --brand-500-shadow: rgba(244, 63, 94, 0.45);
+}
+
+[data-theme='amber'] {
+    --brand-50: #fffbeb;
+    --brand-100: #fef3c7;
+    --brand-200: #fde68a;
+    --brand-300: #fcd34d;
+    --brand-400: #fbbf24;
+    --brand-500: #f59e0b;
+    --brand-600: #d97706;
+    --brand-700: #b45309;
+    --brand-800: #92400e;
+    --brand-900: #78350f;
+    --brand-500-shadow: rgba(245, 158, 11, 0.45);
+}
+
+[data-theme='slate'] {
+    --brand-50: #f8fafc;
+    --brand-100: #f1f5f9;
+    --brand-200: #e2e8f0;
+    --brand-300: #cbd5e1;
+    --brand-400: #94a3b8;
+    --brand-500: #475569;
+    --brand-600: #334155;
+    --brand-700: #1e293b;
+    --brand-800: #0f172a;
+    --brand-900: #020617;
+    --brand-500-shadow: rgba(71, 85, 105, 0.45);
+}
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        background-color: var(--color-surface);
+        color: var(--color-ink-800);
+    }
+}
+
+@layer components {
+    .shadow-soft {
+        box-shadow: var(--shadow-soft);
+    }
+
+    .shadow-brand {
+        box-shadow: var(--shadow-brand);
+    }
+
+    .chip-input {
+        @apply w-full rounded-2xl border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 transition;
+    }
+
+    .dark .chip-input {
+        background-color: var(--ink-100);
+        color: var(--ink-800);
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-medium text-white shadow-brand hover:bg-brand-600 transition disabled:opacity-60 disabled:cursor-not-allowed;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-2.5 text-sm font-medium text-ink-700 hover:bg-ink-50 shadow-soft transition;
+    }
+
+    .dark .btn-ghost {
+        background-color: var(--ink-100);
+    }
+
+    .card {
+        @apply bg-white rounded-[2rem] shadow-soft;
+    }
+
+    .pill-nav {
+        @apply flex items-center gap-2 bg-ink-50 rounded-full p-1;
+    }
+
+    .pill-nav a {
+        @apply px-4 py-2 text-sm font-medium text-ink-500 rounded-full flex items-center gap-2 transition-colors hover:text-ink-900;
+    }
+
+    .pill-nav a.is-active {
+        @apply bg-white text-ink-900 shadow-soft;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* Dark-mode tuning for the white containers used throughout the admin */
+.dark .bg-white {
+    background-color: var(--ink-100);
+}

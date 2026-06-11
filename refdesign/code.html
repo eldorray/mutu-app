@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>InvestIQ Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-styles">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f2f5;
+    }
+    .custom-shadow {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    .orange-accent {
+      color: #ff5e1e;
+    }
+    .bg-orange-accent {
+      background-color: #ff5e1e;
+    }
+    .text-gray-muted {
+      color: #9ca3af;
+    }
+    .bg-gray-muted {
+      background-color: #f3f4f6;
+    }
+    
+    /* Graph Placeholders */
+    .bar-graph-placeholder {
+      background: linear-gradient(to top, #ff5e1e 0%, #ff5e1e 60%, transparent 60%);
+      background-size: 20px 100%;
+      background-repeat: repeat-x;
+      height: 100px;
+    }
+    
+    .line-graph-placeholder-receipts {
+      background: url('data:image/svg+xml;utf8,<svg width="100" height="40" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 30L20 20L40 25L60 10L80 35L100 15" stroke="%23ff5e1e" stroke-width="2"/></svg>') no-repeat center/contain;
+      height: 40px;
+      margin-top: 20px;
+    }
+    
+    .line-graph-placeholder-contributions {
+      background: url('data:image/svg+xml;utf8,<svg width="100" height="40" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 35L20 15L40 25L60 20L80 10L100 30" stroke="%23ff5e1e" stroke-width="2"/></svg>') no-repeat center/contain;
+      height: 40px;
+      margin-top: 20px;
+    }
+    
+    .line-graph-placeholder-owes {
+      background: url('data:image/svg+xml;utf8,<svg width="100" height="40" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20L20 30L40 10L60 25L80 15L100 35" stroke="%23ff5e1e" stroke-width="2"/></svg>') no-repeat center/contain;
+      height: 40px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 flex justify-center items-center min-h-screen">
+<!-- BEGIN: Main Dashboard Container -->
+<div class="bg-white rounded-[2rem] w-full max-w-[1200px] flex overflow-hidden custom-shadow" style="height: auto; min-height: 800px;">
+<!-- BEGIN: Left Sidebar -->
+<aside class="w-20 border-r border-gray-100 flex flex-col items-center py-6 gap-8 bg-white relative z-10">
+<!-- Logo Mark -->
+<div class="w-8 h-8 bg-black rounded flex items-center justify-center text-white font-bold text-xl leading-none pt-1">
+        .I
+      </div>
+<!-- Menu Toggle -->
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors mt-4 text-gray-500">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+<!-- Navigation Icons -->
+<div class="flex flex-col gap-4 mt-8 bg-gray-50 rounded-full p-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-sm text-gray-700">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-500">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-500">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-500">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-500">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+</button>
+</div>
+<!-- Bottom Icon -->
+<div class="mt-auto mb-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors text-gray-500">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></svg>
+</button>
+</div>
+</aside>
+<!-- END: Left Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 bg-[#fbfbfc] flex flex-col relative z-0">
+<!-- BEGIN: Top Header -->
+<header class="h-20 border-b border-gray-100 flex items-center justify-between px-8 bg-white shrink-0">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold text-gray-900 tracking-tight">InvestIQ</h1>
+<nav class="hidden md:flex items-center gap-2 bg-gray-50 rounded-full p-1">
+<a class="px-5 py-2 text-sm font-medium bg-white text-gray-900 rounded-full shadow-sm flex items-center gap-2" href="#">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              Dashboard
+            </a>
+<a class="px-5 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 rounded-full flex items-center gap-2 transition-colors" href="#">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+              Activity
+            </a>
+<a class="px-5 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 rounded-full flex items-center gap-2 transition-colors" href="#">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="2" width="20" x="2" y="5"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+              Wallets
+              <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</a>
+<a class="px-5 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 rounded-full flex items-center gap-2 transition-colors" href="#">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              Settings
+            </a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors border border-gray-200">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors border border-gray-200 relative">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden ml-2 border-2 border-white custom-shadow cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKUJFR4ZJoaPAIBkPxnkhGt-gfVxJTt7VZZX7t0KfUujJuSMDww7CTolHS3_TfRg78oZVkdoJPqd8DeTJ-OLVfOBKCexV_FfGUUnNt_W-7kB_9am0zCoby352-1rjIrOT6I21wgiAKpsG7HvocXe6dK-Rj0f_zboXVl3h-o887-I0pyBlJ7C41YUeDeBCbinB7XRHUvxp1bUbdK2B7HxLGiZ-JA2z3VjW93opm7e6VAZqguohsYfOpiFdLfkpwSNscQzQ4wo7UR7kT"/>
+</div>
+</div>
+</header>
+<!-- END: Top Header -->
+<!-- BEGIN: Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<!-- BEGIN: Page Header Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h2 class="text-3xl font-bold text-gray-900 mb-1">Welcome back, Uzui!</h2>
+<p class="text-gray-500 text-sm">Control your investment, income, and expenses.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2.5 rounded-full border border-gray-200 bg-white text-gray-700 text-sm font-medium flex items-center gap-2 hover:bg-gray-50 transition-colors custom-shadow">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+              Filters
+            </button>
+<button class="px-4 py-2.5 rounded-full border border-gray-200 bg-white text-gray-700 text-sm font-medium flex items-center gap-2 hover:bg-gray-50 transition-colors custom-shadow">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+              Exports
+            </button>
+<button class="px-5 py-2.5 rounded-full bg-orange-accent text-white text-sm font-medium flex items-center gap-2 hover:bg-orange-600 transition-colors shadow-md shadow-orange-200">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+              Add card
+            </button>
+</div>
+</div>
+<!-- END: Page Header Actions -->
+<!-- BEGIN: Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- BEGIN: Left Column (Summary & Averages) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Summary Card -->
+<div class="bg-gray-100 rounded-[2rem] p-6 pb-0 flex flex-col relative overflow-hidden h-[340px]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-lg font-bold text-gray-900">Summary</h3>
+<p class="text-sm text-gray-500">Track your performance.</p>
+</div>
+<button class="bg-white rounded-full px-4 py-1.5 text-sm font-medium text-gray-700 flex items-center gap-2 custom-shadow">
+                  Weekly
+                  <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</button>
+</div>
+<!-- Inner Card for Stats & Chart -->
+<div class="bg-white rounded-[1.5rem] p-6 mt-auto mx-[-8px] mb-[-8px] shadow-sm flex flex-col justify-end h-[240px]">
+<div class="flex justify-between border-b border-gray-100 pb-4 mb-4">
+<div>
+<p class="text-xs text-gray-500 font-medium flex items-center gap-1 mb-1">
+<svg class="text-gray-400 rotate-180" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="19" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                      Total income
+                    </p>
+<p class="text-2xl font-bold text-gray-900">12.135,00</p>
+</div>
+<div class="w-px bg-gray-200"></div>
+<div>
+<p class="text-xs text-gray-500 font-medium flex items-center gap-1 mb-1">
+<svg class="text-gray-400" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="19" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                      Total paid
+                    </p>
+<p class="text-2xl font-bold text-gray-900">8.873,00</p>
+</div>
+</div>
+<!-- Fake Bar Chart -->
+<div class="flex items-end justify-between h-24 gap-2 pt-2">
+<div class="w-full bg-[#ff5e1e] rounded-t-md opacity-80" style="height: 40%"></div>
+<div class="w-full bg-[#ff5e1e] rounded-t-md opacity-90" style="height: 60%"></div>
+<div class="w-full bg-[#ff5e1e] rounded-t-md" style="height: 80%"></div>
+<div class="w-full bg-[#ff5e1e] rounded-t-md opacity-70" style="height: 50%"></div>
+<div class="w-full bg-[#ff5e1e] rounded-t-md opacity-90" style="height: 70%"></div>
+<div class="w-full bg-[#ff5e1e] rounded-t-md opacity-100" style="height: 90%"></div>
+<div class="w-full bg-gray-200 rounded-t-md" style="height: 45%"></div>
+<div class="w-full bg-gray-200 rounded-t-md" style="height: 65%"></div>
+<div class="w-full bg-gray-200 rounded-t-md" style="height: 30%"></div>
+<div class="w-full bg-gray-300 rounded-t-md" style="height: 80%"></div>
+</div>
+</div>
+</div>
+<!-- Averages Row -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Weekly Average -->
+<div class="bg-gray-100 rounded-2xl p-5 flex flex-col justify-between">
+<div class="flex items-center gap-2 mb-4 text-gray-600">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span class="text-sm font-medium">Weekly average</span>
+</div>
+<div>
+<div class="flex items-center gap-1 text-xs text-red-500 font-medium mb-1">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="7" x2="17" y1="7" y2="17"></line><polyline points="17 7 17 17 7 17"></polyline></svg>
+                    -11.5%
+                  </div>
+<p class="text-2xl font-bold text-gray-900">25.460,00</p>
+</div>
+</div>
+<!-- Annual Average -->
+<div class="bg-gray-100 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute inset-0 bg-white opacity-40"></div> <!-- Subtle overlay for distinction -->
+<div class="flex items-center gap-2 mb-4 text-gray-600 relative z-10">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" x2="7.01" y1="7" y2="7"></line></svg>
+<span class="text-sm font-medium">Annual average</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-1 text-xs text-orange-accent font-medium mb-1">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    +11.5%
+                  </div>
+<p class="text-2xl font-bold text-gray-900">25.460,00</p>
+</div>
+</div>
+</div>
+<!-- Bottom Ad/Banner -->
+<div class="bg-gray-100 rounded-2xl p-5 flex items-center justify-between mt-auto">
+<div>
+<p class="font-medium text-gray-900">How is your business</p>
+<p class="font-medium text-gray-900">management going?</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-gray-500 custom-shadow">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+</div>
+</div>
+<!-- END: Left Column -->
+<!-- BEGIN: Right Column (Activity & Transactions) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Activity Section -->
+<div class="bg-gray-100 rounded-[2rem] p-6 pb-6">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-lg font-bold text-gray-900">Activity</h3>
+<p class="text-sm text-gray-500">Track your activity.</p>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-600 custom-shadow">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="4" y1="21" y2="14"></line><line x1="4" x2="4" y1="10" y2="3"></line><line x1="12" x2="12" y1="21" y2="12"></line><line x1="12" x2="12" y1="8" y2="3"></line><line x1="20" x2="20" y1="21" y2="16"></line><line x1="20" x2="20" y1="12" y2="3"></line><line x1="1" x2="7" y1="14" y2="14"></line><line x1="9" x2="15" y1="8" y2="8"></line><line x1="17" x2="23" y1="16" y2="16"></line></svg>
+</button>
+<button class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-600 custom-shadow">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+</button>
+</div>
+</div>
+<!-- Activity Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Receipts Card -->
+<div class="bg-white rounded-2xl p-5 shadow-sm">
+<div class="flex items-center gap-2 mb-4 text-gray-700">
+<div class="w-6 h-6 rounded-md bg-gray-100 flex items-center justify-center">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+</div>
+<span class="font-medium text-sm">Receipts</span>
+</div>
+<div>
+<div class="flex items-center gap-1 text-xs text-orange-accent font-medium mb-1">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                      +11.5%
+                    </div>
+<p class="text-xl font-bold text-gray-900">120.560,00</p>
+</div>
+<div class="line-graph-placeholder-receipts"></div>
+</div>
+<!-- Contributions Card -->
+<div class="bg-white rounded-2xl p-5 shadow-sm">
+<div class="flex items-center gap-2 mb-4 text-gray-700">
+<div class="w-6 h-6 rounded-md bg-gray-100 flex items-center justify-center">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+</div>
+<span class="font-medium text-sm">Contributions</span>
+</div>
+<div>
+<div class="flex items-center gap-1 text-xs text-orange-accent font-medium mb-1">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="7" x2="17" y1="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                      +4.5%
+                    </div>
+<p class="text-xl font-bold text-gray-900">37.272,00</p>
+</div>
+<div class="line-graph-placeholder-contributions"></div>
+</div>
+<!-- Owes Card (Dark) -->
+<div class="bg-[#422a18] rounded-2xl p-5 shadow-sm text-white">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center text-white">
+<svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="1" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+<span class="font-medium text-sm">Owes</span>
+</div>
+<div>
+<div class="flex items-center gap-1 text-xs text-orange-400 font-medium mb-1">
+<svg fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg"><line x1="7" x2="17" y1="7" y2="17"></line><polyline points="17 7 17 17 7 17"></polyline></svg>
+                      -20.5%
+                    </div>
+<p class="text-xl font-bold">9.230,00</p>
+</div>
+<div class="line-graph-placeholder-owes"></div>
+</div>
+</div>
+</div>
+<!-- Transactions History -->
+<div class="bg-gray-100 rounded-[2rem] p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold text-gray-900">Transactions history</h3>
+<p class="text-sm text-gray-500">Track your history.</p>
+</div>
+<button class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-600 custom-shadow">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="4" y1="21" y2="14"></line><line x1="4" x2="4" y1="10" y2="3"></line><line x1="12" x2="12" y1="21" y2="12"></line><line x1="12" x2="12" y1="8" y2="3"></line><line x1="20" x2="20" y1="21" y2="16"></line><line x1="20" x2="20" y1="12" y2="3"></line><line x1="1" x2="7" y1="14" y2="14"></line><line x1="9" x2="15" y1="8" y2="8"></line><line x1="17" x2="23" y1="16" y2="16"></line></svg>
+</button>
+</div>
+<!-- Table -->
+<div class="bg-white rounded-[1.5rem] p-2 flex-1 mt-2 shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-xs text-gray-400 border-b border-gray-100">
+<th class="font-medium py-3 px-4">Name</th>
+<th class="font-medium py-3 px-4">ID</th>
+<th class="font-medium py-3 px-4">Status</th>
+<th class="font-medium py-3 px-4">Date</th>
+<th class="font-medium py-3 px-4 text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="text-sm text-gray-800">
+<tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+<td class="py-3 px-4 flex items-center gap-3">
+<img alt="Guy Hawkins" class="w-8 h-8 rounded-full bg-gray-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-7mEZJJkrqnaCBTKnWC5YZ_8AvPt8y3miiZSCxEK2pJOEZmOzkGtisaIocFviHPnpjw-ExvcUE49JcRrJwIUfdpcREXcPkS7-Wbj8qBujOJfHtcyTJLkwxldcX_M5YWB9yXHHSF2qNmKaSsQG87NE3uNboHneM60RucmMqM0eSvlpZpEwINCfQYsMhg_hGNx-tUnHG8xIhqX6A_-URj90gbxqcg-WzgP2o1_8Imy6Vi7vaQp3SMMi5dBX8CPNwau7BW3c2PcG3zHQ"/>
+<span class="font-medium">Guy Hawkins</span>
+</td>
+<td class="py-3 px-4 text-gray-500">#1298970</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Completed
+                        </span>
+</td>
+<td class="py-3 px-4 text-gray-500">May 29, 2024</td>
+<td class="py-3 px-4 text-right font-medium text-red-500">-$15.30</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="py-3 px-4 flex items-center gap-3">
+<img alt="Robert Fox" class="w-8 h-8 rounded-full bg-gray-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtQTilGBTLlZivvNMDmTyxphnWoGcsontPQaExUHsozupTnu8F7w9gRBaE95QX_u3RzCK_xA8jGR_49QZENZxZxrSnMXu57j70ENsEhydI-NkZ__BuHMz97brN9UVDXoEEGMdNLaXgmyu2gfmU4IGV67IuhdYUv70HFxUgiQMPYmvA1O38geAFVDSNxhRJ6-VZ1GLMTkaUZWHFGncqTMPsQ-ZZo4Pn8fgW10BXTjUFSfg-bLpJ-AA-LqLEzQIXM5dwHqb9sicgHZmy"/>
+<span class="font-medium">Robert Fox</span>
+</td>
+<td class="py-3 px-4 text-gray-500">#1848230</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 text-xs font-medium text-orange-500 bg-orange-50 px-2 py-1 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span> Pending
+                        </span>
+</td>
+<td class="py-3 px-4 text-gray-500">May 11, 2024</td>
+<td class="py-3 px-4 text-right font-medium text-red-500">-$23.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- END: Right Column -->
+</div>
+<!-- END: Dashboard Grid -->
+</div>
+<!-- END: Scrollable Content -->
+</main>
+<!-- END: Main Content Area -->
+</div>
+<!-- END: Main Dashboard Container -->
+</body></html>

@@ -81,7 +81,11 @@ return new class extends Migration
 
         Schema::create('accreditation_indicator_evidence_suggestions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('indicator_id')->constrained('accreditation_indicators')->cascadeOnDelete();
+            $table->unsignedBigInteger('indicator_id');
+            $table->foreign('indicator_id', 'acc_ev_sugg_ind_fk')
+                ->references('id')
+                ->on('accreditation_indicators')
+                ->cascadeOnDelete();
             $table->string('name');
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();

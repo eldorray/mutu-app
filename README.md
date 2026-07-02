@@ -43,6 +43,10 @@ Mendukung penuh program Adiwiyata (Sekolah Peduli Lingkungan):
 
 *Halaman login dengan pilihan modul Akreditasi atau Adiwiyata.*
 
+![Pengisian Indikator](screenshots/pengisian-indikator.png)
+
+*Halaman pengisian indikator akreditasi — guru memilih rubrik penilaian dan melampirkan bukti pendukung.*
+
 ---
 
 ## ✨ Fitur Unggulan

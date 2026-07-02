@@ -37,6 +37,14 @@ Mendukung penuh program Adiwiyata (Sekolah Peduli Lingkungan):
 
 ---
 
+## 📸 Tampilan Aplikasi
+
+![Halaman Login](screenshots/login.png)
+
+*Halaman login dengan pilihan modul Akreditasi atau Adiwiyata.*
+
+---
+
 ## ✨ Fitur Unggulan
 
 | Fitur | Deskripsi |
